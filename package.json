@@ -1,0 +1,26 @@
+{
+  "name": "rasp-downloader",
+  "version": "0.0.1",
+  "description": "Simple file downloader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valsylver/rasp-downloader.git"
+  },
+  "keywords": [
+    "download"
+  ],
+  "author": "vmarmousez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Valsylver/rasp-downloader/issues"
+  },
+  "homepage": "https://github.com/Valsylver/rasp-downloader#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4"
+  }
+}
