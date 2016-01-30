@@ -9,6 +9,8 @@ uploader.upload = function(fileName) {
 	client.on('ready', function() {
 		client.put(fileName, '/Volume_1/Upload/' + fileName, function(err) {
   			if (err) throw err;
+  			console.log('remove file ' + fileName);
+  			fs.unlinkSync(fileName);
 			client.end();
 		});
 	});

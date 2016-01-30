@@ -14,3 +14,4 @@ controler nombre téléchargement
 logger dans un fichier
 stocker les téléchargements (mongo ?)
 gerer config.js proprement
+version node rasp
