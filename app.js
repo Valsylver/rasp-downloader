@@ -1,8 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var fs = require('fs');
 var config = require('./config');
 var downloader = require('./downloader/downloader');
+var uploader = require('./uploader/uploader');
 var logging = require('./logging/logging');
 
 var app = express();
@@ -29,6 +29,7 @@ app.post('/api/v1/link', function(req, res) {
 	    		if (bytesReceived === link.bytesTotal) {
 	    			link['status'] = 'END_OK';
 	    			link['endDate'] = new Date();
+	    			uploader.upload(link['fileName']);
 	    		}
 	    	}
 	    );
@@ -40,12 +41,6 @@ app.post('/api/v1/link', function(req, res) {
 
 app.get('/api/v1/links', function(req, res) {
     res.send(links);
-});
-
-// TODO
-app.get('/api/v1/activation', function(req, res) {
-	var active = req.body.active;
-    res.send('OK');
 });
 
 app.listen(config.port, function () {

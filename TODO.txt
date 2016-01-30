@@ -1,1 +1,16 @@
 envoi FTP à la fin
+flow
+password ftp config	
+controler déclenchement -> scheduler ?
+supprimer liens dans fichiers
+format http ou https dans downloader
+format space tab
+separer download et logic de sauvegarde fichier
+gerer evenement au lieu de callback dans downloader ?
+deploy script ? 
+full path problem uploader
+supprimer fichier à la fin
+controler nombre téléchargement
+logger dans un fichier
+stocker les téléchargements (mongo ?)
+gerer config.js proprement
