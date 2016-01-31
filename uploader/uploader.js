@@ -9,7 +9,7 @@ uploader.upload = function(fileName) {
 	client.on('ready', function() {
 		client.put(fileName, '/Volume_1/Upload/' + fileName, function(err) {
   			if (err) throw err;
-  			fs.access(path, fs.R_OK | fs.W_OK, function(err) {
+  			fs.access(fileName, fs.R_OK | fs.W_OK, function(err) {
 			    if (!err) {
 			        console.log('remove file ' + fileName);
   					fs.unlinkSync(fileName);
