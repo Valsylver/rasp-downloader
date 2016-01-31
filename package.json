@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Valsylver/rasp-downloader#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "dateformat": "^1.0.12",
     "express": "^4.13.4",
     "ftp": "^0.3.10",
     "nimble": "0.0.2"

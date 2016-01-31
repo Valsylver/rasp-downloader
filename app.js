@@ -44,7 +44,7 @@ app.get('/api/v1/links', function(req, res) {
 });
 
 app.listen(config.port, function () {
-    console.log('Start application on port ' + config.port);
+    logging.logWithDate('Start application on port ' + config.port);
 });
 
 setInterval(function() {

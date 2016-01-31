@@ -1,6 +1,14 @@
 var statictics = require('../statistics/statistics');
+var dateFormat = require('dateformat');
 
 var logger = {};
+
+var logWithDate = function(message) {
+	var dateFormatted = dateFormat(new Date(), "isoDateTime");
+	console.log(dateFormatted + ' ' + message);
+}
+
+logger.logWithDate = logWithDate;
 
 logger.logLinks = function(links) {
 	for (var linkUrl in links) {
@@ -19,7 +27,7 @@ logger.logLinks = function(links) {
 				message += rate.toFixed(2) + ' Mo/s ';
 				message += '(' + megaBytesReceived.toFixed(2) + ' Mo/' + megaBytesTotal.toFixed(2) + ') ';
 				message += remainingSeconds.toFixed(2) + ' seconds remaining';
-				console.log(message);
+				logWithDate(message);
 			}
 		}
 	}
