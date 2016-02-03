@@ -15,9 +15,9 @@ var checkAndStartNext = function() {
 		pendingRequestsCount += 1;
 		logging.logWithDate('Process start');
 		nextRequest(function() {
+			logging.logWithDate('Process end');
 			pendingRequestsCount -= 1;
 			checkAndStartNext();
-			logging.logWithDate('Process end');
 		});
 	};
 };

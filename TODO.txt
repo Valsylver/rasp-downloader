@@ -16,3 +16,5 @@ stocker les téléchargements (mongo ?)
 gerer config.js proprement
 version node rasp
 retry mechanism
+test indep de config
+properly close connection

@@ -29,7 +29,7 @@ app.post('/api/v1/link', function(req, res) {
 		    	},
 		    	function(bytesReceived) {
 		    		link['bytesReceived'] = bytesReceived;
-		    		if (bytesReceived === link.bytesTotal) {
+		    		if ((bytesReceived === link.bytesTotal) && (link['status'] === 'START_OK')) {
 		    			link['status'] = 'END_OK';
 		    			link['endDate'] = new Date();
 		    			uploader.upload(link['fileName']);
