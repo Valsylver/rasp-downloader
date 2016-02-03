@@ -24,10 +24,10 @@ uploader.upload = function(fileName) {
 			client.end();
 		});
 	});
-	client.on('error', function(e)) {
+	client.on('error', function(e) {
 		logging.logWithDate('Error while uploading ' + fileName + ' : ' + e);
 		removeFile(fileName);
-	};
+	});
 	client.connect({
 		'host': config.ftp.host,
 		'user': config.ftp.username,
