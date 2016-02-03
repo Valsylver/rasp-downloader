@@ -7,7 +7,7 @@ var uploader = {};
 uploader.upload = function(fileName) {
 	var client = new Client();
 	client.on('ready', function() {
-		client.put(fileName, '/Volume_1/Upload/' + fileName, function(err) {
+		client.put(fileName, '/Data/Films/' + fileName, function(err) {
   			if (err) throw err;
   			fs.access(fileName, fs.R_OK | fs.W_OK, function(err) {
 			    if (!err) {
