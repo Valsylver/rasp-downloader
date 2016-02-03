@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var downloader = require('./downloader/downloader');
 var uploader = require('./uploader/uploader');
+var processor = require('./processor/processor');
 var logging = require('./logging/logging');
 
 var app = express();
@@ -17,22 +18,27 @@ app.post('/api/v1/link', function(req, res) {
 			'status': 'INITIALIZED'
 		};
 		links[url] = link;
-	    downloader.makeHttpsRequest(url, 
-	    	function(fileName, bytesTotal) {
-	    		link['status'] = 'START_OK';
-	    		link['fileName'] = fileName;
-	    		link['bytesTotal'] = bytesTotal;
-	    		link['startDate'] = new Date();
-	    	},
-	    	function(bytesReceived) {
-	    		link['bytesReceived'] = bytesReceived;
-	    		if (bytesReceived === link.bytesTotal) {
-	    			link['status'] = 'END_OK';
-	    			link['endDate'] = new Date();
-	    			uploader.upload(link['fileName']);
-	    		}
-	    	}
-	    );
+
+		var process = function(callback) {
+			downloader.makeHttpsRequest(url, 
+		    	function(fileName, bytesTotal) {
+		    		link['status'] = 'START_OK';
+		    		link['fileName'] = fileName;
+		    		link['bytesTotal'] = bytesTotal;
+		    		link['startDate'] = new Date();
+		    	},
+		    	function(bytesReceived) {
+		    		link['bytesReceived'] = bytesReceived;
+		    		if (bytesReceived === link.bytesTotal) {
+		    			link['status'] = 'END_OK';
+		    			link['endDate'] = new Date();
+		    			uploader.upload(link['fileName']);
+		    			callback();
+		    		}
+		    	}
+		    );
+		}
+		processor.addToQueue(process);
 	    res.send('OK');
 	} else {
 	    res.status(500).send('Fail');

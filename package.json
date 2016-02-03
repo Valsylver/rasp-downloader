@@ -24,6 +24,9 @@
     "dateformat": "^1.0.12",
     "express": "^4.13.4",
     "ftp": "^0.3.10",
-    "nimble": "0.0.2"
+    "mocha": "^2.4.5",
+    "nimble": "0.0.2",
+    "should": "^8.2.1",
+    "underscore": "^1.8.3"
   }
 }
