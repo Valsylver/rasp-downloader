@@ -38,7 +38,7 @@ app.post('/api/v1/link', function(req, res) {
 					callback();
 				},
 				function(error) {
-					logging.logWithDate('Error while downloading ' + link['fileName'] + ' : ' + error);
+					logging.logWithDate('Error while downloading ' + url + ' : ' + error);
 					callback();
 				}
 			);
