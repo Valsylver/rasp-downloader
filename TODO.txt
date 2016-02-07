@@ -18,3 +18,4 @@ version node rasp
 retry mechanism
 test indep de config
 properly close connection
+handle errors in storage

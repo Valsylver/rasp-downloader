@@ -25,6 +25,7 @@
     "express": "^4.13.4",
     "ftp": "^0.3.10",
     "mocha": "^2.4.5",
+    "mongodb": "^2.1.6",
     "nimble": "0.0.2",
     "should": "^8.2.1",
     "underscore": "^1.8.3"

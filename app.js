@@ -21,36 +21,41 @@ app.post('/api/v1/link', function(req, res) {
 
 		var process = function(callback) {
 			downloader.makeHttpsRequest(url, 
-		    	function(fileName, bytesTotal) {
-		    		link['status'] = 'START_OK';
-		    		link['fileName'] = fileName;
-		    		link['bytesTotal'] = bytesTotal;
-		    		link['startDate'] = new Date();
-		    	},
-		    	function(bytesReceived) {
-		    		link['bytesReceived'] = bytesReceived;
-		    		if ((bytesReceived === link.bytesTotal) && (link['status'] === 'START_OK')) {
-		    			link['status'] = 'END_OK';
-		    			link['endDate'] = new Date();
-		    			uploader.upload(link['fileName']);
-		    			callback();
-		    		}
-		    	}
-		    );
+				function(fileName, bytesTotal) {
+					link['status'] = 'START_OK';
+					link['fileName'] = fileName;
+					link['bytesTotal'] = bytesTotal;
+					link['startDate'] = new Date();
+				},
+				function(bytesReceived) {
+					link['bytesReceived'] = bytesReceived;
+				},
+				function() {
+					link['status'] = 'END_OK';
+					link['bytesReceived'] = link['bytesTotal'];
+					uploader.upload(link['fileName']);
+					link['endDate'] = new Date();
+					callback();
+				},
+				function(error) {
+					logging.logWithDate('Error while downloading ' + link['fileName'] + ' : ' + error);
+					callback();
+				}
+			);
 		}
 		processor.addToQueue(process);
-	    res.send('OK');
+		res.send('OK');
 	} else {
-	    res.status(500).send('Fail');
+		res.status(500).send('Fail');
 	}
 });
 
 app.get('/api/v1/links', function(req, res) {
-    res.send(links);
+	res.send(links);
 });
 
 app.listen(config.port, function () {
-    logging.logWithDate('Start application on port ' + config.port);
+	logging.logWithDate('Start application on port ' + config.port);
 });
 
 setInterval(function() {
