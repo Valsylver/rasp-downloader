@@ -54,7 +54,7 @@ app.post('/api/v1/link', (req, res) => {
 });
 
 app.get('/api/v1/links', (req, res) => {
-	res.send(links);
+	res.json(links);
 });
 
 app.listen(config.port, () => {
