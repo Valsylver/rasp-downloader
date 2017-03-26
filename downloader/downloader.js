@@ -4,7 +4,7 @@ var config = require('../config');
 
 var downloader = {};
 
-var makeHttpsRequest = function(url, informations, step, end, fail) {
+var makeHttpsRequest = (url, informations, step, end, fail) => {
 	var urlWithoutHttps = url.replace('https://', '');
 	var urlWithoutHttpsSplitted = urlWithoutHttps.split('/');
 	var host = urlWithoutHttpsSplitted[0];
@@ -48,11 +48,11 @@ var makeHttpsRequest = function(url, informations, step, end, fail) {
 		}
 		catch (e) {
 			fail(e);
-		}	
+		}
 	}
 ).on('error', function(error) {
 		fail(error);
-	});    
+	});
 };
 
 downloader.makeHttpsRequest = makeHttpsRequest;

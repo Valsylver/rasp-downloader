@@ -7,11 +7,12 @@ var processor = require('./processor/processor');
 var logging = require('./logging/logging');
 
 var app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(require('cors'));
 
 var links = {};
 
-app.post('/api/v1/link', function(req, res) {
+app.post('/api/v1/link', (req, res) => {
 	var url = req.body.url;
 	if (url) {
 		var link = {
@@ -19,47 +20,47 @@ app.post('/api/v1/link', function(req, res) {
 		};
 		links[url] = link;
 
-		var process = function(callback) {
-			downloader.makeHttpsRequest(url, 
-				function(fileName, bytesTotal) {
+		var process = callback => {
+			downloader.makeHttpsRequest(url,
+				(fileName, bytesTotal) => {
 					link['status'] = 'START_OK';
 					link['fileName'] = fileName;
 					link['bytesTotal'] = bytesTotal;
 					link['startDate'] = new Date();
 				},
-				function(bytesReceived) {
+				bytesReceived => {
 					link['bytesReceived'] = bytesReceived;
 				},
-				function() {
+				() => {
 					link['status'] = 'END_OK';
 					link['bytesReceived'] = link['bytesTotal'];
-					uploader.upload(link['fileName']);
 					link['endDate'] = new Date();
+					uploader.upload(link['fileName']);
 					callback();
 				},
-				function(error) {
+				error => {
+					link['status'] = 'FAILED';
+					link['endDate'] = new Date();
+					res.status(500).json({'status': `Fail : ${error}`});
 					logging.logWithDate('Error while downloading ' + url + ' : ' + error);
 					callback();
 				}
 			);
 		}
 		processor.addToQueue(process);
-		res.send('OK');
 	} else {
 		res.status(500).send('Fail');
 	}
 });
 
-app.get('/api/v1/links', function(req, res) {
+app.get('/api/v1/links', (req, res) => {
 	res.send(links);
 });
 
-app.listen(config.port, function () {
+app.listen(config.port, () => {
 	logging.logWithDate('Start application on port ' + config.port);
 });
 
 setInterval(function() {
 	logging.logLinks(links);
 }, 2000);
-
-
