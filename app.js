@@ -31,6 +31,7 @@ app.post('/api/v1/link', (req, res) => {
 					link['fileName'] = fileName;
 					link['bytesTotal'] = bytesTotal;
 					link['startDate'] = new Date();
+					res.json({'status': 'OK'});
 				},
 				bytesReceived => {
 					link['bytesReceived'] = bytesReceived;
