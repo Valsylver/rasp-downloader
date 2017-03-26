@@ -7,12 +7,12 @@ var processor = require('./processor/processor');
 var logging = require('./logging/logging');
 
 var app = express();
-app.use(bodyParser.json());
-app.all('/', (req, res, next) => {
+app.use('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
+app.use(bodyParser.json());
 
 var links = {};
 
