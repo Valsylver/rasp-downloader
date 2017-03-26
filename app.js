@@ -8,7 +8,11 @@ var logging = require('./logging/logging');
 
 var app = express();
 app.use(bodyParser.json());
-app.use(require('cors'));
+app.all('/', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
 
 var links = {};
 
