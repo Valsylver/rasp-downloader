@@ -23,6 +23,7 @@ app.post('/api/v1/link', (req, res) => {
 			'status': 'INITIALIZED'
 		};
 		links[url] = link;
+		res.json({'status': 'OK'});
 
 		var process = callback => {
 			downloader.makeHttpsRequest(url,
@@ -31,7 +32,6 @@ app.post('/api/v1/link', (req, res) => {
 					link['fileName'] = fileName;
 					link['bytesTotal'] = bytesTotal;
 					link['startDate'] = new Date();
-					res.json({'status': 'OK'});
 				},
 				bytesReceived => {
 					link['bytesReceived'] = bytesReceived;
