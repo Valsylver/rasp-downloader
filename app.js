@@ -46,7 +46,6 @@ app.post('/api/v1/link', (req, res) => {
 				error => {
 					link['status'] = 'FAILED';
 					link['endDate'] = new Date();
-					res.status(500).json({'status': `Fail : ${error}`});
 					logging.logWithDate('Error while downloading ' + url + ' : ' + error);
 					callback();
 				}
